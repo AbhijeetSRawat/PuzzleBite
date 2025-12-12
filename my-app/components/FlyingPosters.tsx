@@ -323,6 +323,19 @@ class Media {
   }
 }
 
+interface CanvasParams {
+  container: HTMLElement;
+  canvas: HTMLCanvasElement;
+  items: string[];
+  planeWidth: number;
+  planeHeight: number;
+  distortion: number;
+  scrollEase: number;
+  cameraFov: number;
+  cameraZ: number;
+  onActiveIndexChange?: (index: number) => void;
+}
+
 class Canvas {
   container: HTMLElement;
   canvas: HTMLCanvasElement;
@@ -333,6 +346,8 @@ class Canvas {
   scroll: ScrollState;
   cameraFov: number;
   cameraZ: number;
+  onActiveIndexChange?: (index: number) => void;
+  activeIndex: number = -1;
 
   renderer!: Renderer;
   gl!: GL;
@@ -355,7 +370,8 @@ class Canvas {
     distortion,
     scrollEase,
     cameraFov,
-    cameraZ
+    cameraZ,
+    onActiveIndexChange
   }: CanvasParams) {
     this.container = container;
     this.canvas = canvas;
@@ -371,6 +387,7 @@ class Canvas {
     };
     this.cameraFov = cameraFov;
     this.cameraZ = cameraZ;
+    this.onActiveIndexChange = onActiveIndexChange;
 
     AutoBind(this);
     this.createRenderer();
@@ -488,6 +505,28 @@ class Canvas {
     this.medias?.forEach(media => media.update(this.scroll));
     this.renderer.render({ scene: this.scene, camera: this.camera });
     this.scroll.last = this.scroll.current;
+
+    // Calculate active index based on closest media to center (y=0)
+    if (this.medias && this.medias.length > 0) {
+      let closestDistance = Infinity;
+      let closestIndex = -1;
+
+      this.medias.forEach((media) => {
+        const distance = Math.abs(media.plane.position.y);
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closestIndex = media.index;
+        }
+      });
+
+      if (closestIndex !== -1 && closestIndex !== this.activeIndex) {
+        this.activeIndex = closestIndex;
+        if (this.onActiveIndexChange) {
+          this.onActiveIndexChange(this.activeIndex);
+        }
+      }
+    }
+
     requestAnimationFrame(this.update);
   }
 
@@ -522,6 +561,7 @@ interface FlyingPostersProps extends React.HTMLAttributes<HTMLDivElement> {
   scrollEase?: number;
   cameraFov?: number;
   cameraZ?: number;
+  onActiveIndexChange?: (index: number) => void;
 }
 
 export default function FlyingPosters({
@@ -533,6 +573,7 @@ export default function FlyingPosters({
   cameraFov = 45,
   cameraZ = 20,
   className,
+  onActiveIndexChange,
   ...props
 }: FlyingPostersProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -551,14 +592,15 @@ export default function FlyingPosters({
       distortion,
       scrollEase,
       cameraFov,
-      cameraZ
+      cameraZ,
+      onActiveIndexChange
     });
 
     return () => {
       instanceRef.current?.destroy();
       instanceRef.current = null;
     };
-  }, [items, planeWidth, planeHeight, distortion, scrollEase, cameraFov, cameraZ]);
+  }, [items, planeWidth, planeHeight, distortion, scrollEase, cameraFov, cameraZ, onActiveIndexChange]);
 
   useEffect(() => {
     if (!canvasRef.current) return;
