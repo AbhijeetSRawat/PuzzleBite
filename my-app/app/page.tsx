@@ -8,7 +8,7 @@ const items = [
 ];
 export default function Home() {
   return (
-    <div style={{ height: '600px', position: 'relative' }}>
+    <div style={{ height: '900px', position: 'relative' }}>
       <FlyingPosters items={items} />
     </div>
 
