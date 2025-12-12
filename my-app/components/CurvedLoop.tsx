@@ -1,3 +1,4 @@
+"use client"
 import { useRef, useEffect, useState, useMemo, useId, FC, PointerEvent } from 'react';
 
 interface CurvedLoopProps {
@@ -9,13 +10,14 @@ interface CurvedLoopProps {
   interactive?: boolean;
 }
 
-const CurvedLoop: FC<CurvedLoopProps> = ({
+const CurvedLoop: FC<CurvedLoopProps & { children?: React.ReactNode }> = ({
   marqueeText = '',
   speed = 2,
   className,
   curveAmount = 400,
   direction = 'left',
-  interactive = true
+  interactive = true,
+  children
 }) => {
   const text = useMemo(() => {
     const hasTrailing = /\s|\u00A0$/.test(marqueeText);
@@ -39,8 +41,8 @@ const CurvedLoop: FC<CurvedLoopProps> = ({
   const textLength = spacing;
   const totalText = textLength
     ? Array(Math.ceil(1800 / textLength) + 2)
-        .fill(text)
-        .join('')
+      .fill(text)
+      .join('')
     : text;
   const ready = spacing > 0;
 
@@ -109,31 +111,42 @@ const CurvedLoop: FC<CurvedLoopProps> = ({
 
   return (
     <div
-      className="min-h-screen flex items-center justify-center w-full"
-      style={{ visibility: ready ? 'visible' : 'hidden', cursor: cursorStyle }}
+      className="relative flex items-center justify-center w-full h-full overflow-hidden"
+      style={{ cursor: cursorStyle }}
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={endDrag}
       onPointerLeave={endDrag}
     >
-      <svg
-        className="select-none w-full overflow-visible block aspect-[100/12] text-[6rem] font-bold uppercase leading-none"
-        viewBox="0 0 1440 120"
+      {children && (
+        <div className="absolute inset-0 z-0">
+          {children}
+        </div>
+      )}
+
+      <div
+        className="relative z-10 flex items-center justify-center w-full h-full"
+        style={{ visibility: ready ? 'visible' : 'hidden' }}
       >
-        <text ref={measureRef} xmlSpace="preserve" style={{ visibility: 'hidden', opacity: 0, pointerEvents: 'none' }}>
-          {text}
-        </text>
-        <defs>
-          <path ref={pathRef} id={pathId} d={pathD} fill="none" stroke="transparent" />
-        </defs>
-        {ready && (
-          <text xmlSpace="preserve" className={`fill-white ${className ?? ''}`}>
-            <textPath ref={textPathRef} href={`#${pathId}`} startOffset={offset + 'px'} xmlSpace="preserve">
-              {totalText}
-            </textPath>
+        <svg
+          className="select-none w-full overflow-visible block aspect-[100/12] text-[6rem] font-bold uppercase leading-none"
+          viewBox="0 0 1440 120"
+        >
+          <text ref={measureRef} xmlSpace="preserve" style={{ visibility: 'hidden', opacity: 0, pointerEvents: 'none' }}>
+            {text}
           </text>
-        )}
-      </svg>
+          <defs>
+            <path ref={pathRef} id={pathId} d={pathD} fill="none" stroke="transparent" />
+          </defs>
+          {ready && (
+            <text xmlSpace="preserve" className={className || 'fill-white'}>
+              <textPath ref={textPathRef} href={`#${pathId}`} startOffset={offset + 'px'} xmlSpace="preserve">
+                {totalText}
+              </textPath>
+            </text>
+          )}
+        </svg>
+      </div>
     </div>
   );
 };
