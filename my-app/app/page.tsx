@@ -1,30 +1,26 @@
 "use client";
-import { useState } from 'react';
-import FlyingPosters from '../components/FlyingPosters';
-import CurvedLoop from '../components/CurvedLoop';
 
-const items = [
-  'https://picsum.photos/500/500?grayscale',
-  'https://picsum.photos/600/600?grayscale',
-  'https://picsum.photos/400/400?grayscale'
-];
+import { Hero } from "@/components/sections/Hero";
+import { HowItWorks } from "@/components/sections/HowItWorks";
+import { Features } from "@/components/sections/Features";
+import { WhyPuzzleBite } from "@/components/sections/WhyPuzzleBite";
+import { Pricing } from "@/components/sections/Pricing";
+import { Story } from "@/components/sections/Story";
+import { Contact } from "@/components/sections/Contact";
 
-const slides = [
-  { bg: 'bg-red-950', text: 'fill-red-500', marqueeText: 'Welcome to TechBro24' },
-  { bg: 'bg-blue-950', text: 'fill-blue-500', marqueeText: 'Creative Solutions' },
-  { bg: 'bg-purple-950', text: 'fill-purple-500', marqueeText: 'Modern Design' }
-];
+import { ParallaxBackground } from "@/components/ui/ParallaxBackground";
 
 export default function Home() {
-  const [activeIndex, setActiveIndex] = useState(0);
-
   return (
-    <div className={`transition-colors duration-700 ease-in-out ${slides[activeIndex].bg}`}>
-      <div style={{ height: '900px', position: 'relative' }}>
-        <CurvedLoop marqueeText={slides[activeIndex].marqueeText} className={`transition-colors duration-700 ease-in-out ${slides[activeIndex].text}`}>
-          <FlyingPosters items={items} onActiveIndexChange={setActiveIndex} />
-        </CurvedLoop>
-      </div>
-    </div>
+    <main className="min-h-screen bg-background text-foreground overflow-x-hidden relative">
+      <ParallaxBackground />
+      <Hero />
+      <HowItWorks />
+      <Features />
+      <WhyPuzzleBite />
+      <Pricing />
+      <Story />
+      <Contact />
+    </main>
   );
 }
