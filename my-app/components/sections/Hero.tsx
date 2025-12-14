@@ -61,7 +61,7 @@ export function Hero() {
                 </motion.div>
             </div>
 
-            <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce text-gray-400">
+            <div className="absolute bottom-10 left- -translate-x-1/2 animate-bounce text-gray-400">
                 <span className="text-sm">Scroll to explore</span>
             </div>
 
