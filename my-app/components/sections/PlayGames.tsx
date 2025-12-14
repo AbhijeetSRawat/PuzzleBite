@@ -8,6 +8,7 @@ import { MemoryGame } from "@/components/games/MemoryGame";
 import { WhackAMole } from "@/components/games/WhackAMole";
 import { Game2048 } from "@/components/games/Game2048";
 import { TriviaGame } from "@/components/games/TriviaGame";
+import { DiscountModal } from "@/components/ui/DiscountModal";
 import { Gamepad2, Grid, Brain, MousePointer2, Hash, HelpCircle } from "lucide-react";
 
 const games = [
@@ -57,9 +58,11 @@ const games = [
 
 export function PlayGames() {
     const [selectedGame, setSelectedGame] = useState<string | null>(null);
+    const [showDiscount, setShowDiscount] = useState(false);
 
     const handleGameComplete = () => {
         setSelectedGame(null);
+        setShowDiscount(true);
     };
 
     return (
@@ -106,6 +109,8 @@ export function PlayGames() {
             {selectedGame === "whack" && <WhackAMole onClose={() => setSelectedGame(null)} onComplete={handleGameComplete} />}
             {selectedGame === "2048" && <Game2048 onClose={() => setSelectedGame(null)} onComplete={handleGameComplete} />}
             {selectedGame === "trivia" && <TriviaGame onClose={() => setSelectedGame(null)} onComplete={handleGameComplete} />}
+
+            <DiscountModal isOpen={showDiscount} onClose={() => setShowDiscount(false)} />
         </section>
     );
 }
