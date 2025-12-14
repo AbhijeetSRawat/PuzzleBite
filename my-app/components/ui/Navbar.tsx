@@ -66,9 +66,7 @@ export function Navbar() {
                             {link.name}
                         </a>
                     ))}
-                    <button className="bg-primary hover:bg-primary/90 text-white px-6 py-2 rounded-full font-bold text-sm transition-all">
-                        Book Demo
-                    </button>
+                   
                 </div>
 
                 {/* Mobile Menu Button */}
@@ -100,9 +98,7 @@ export function Navbar() {
                                     {link.name}
                                 </a>
                             ))}
-                            <button className="bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-full font-bold text-lg transition-all w-full">
-                                Book Demo
-                            </button>
+                           
                         </div>
                     </motion.div>
                 )}

@@ -2,6 +2,7 @@
 
 import { Hero } from "@/components/sections/Hero";
 import { HowItWorks } from "@/components/sections/HowItWorks";
+import { PlayGames } from "@/components/sections/PlayGames";
 import { Features } from "@/components/sections/Features";
 import { WhyPuzzleBite } from "@/components/sections/WhyPuzzleBite";
 import { Pricing } from "@/components/sections/Pricing";
@@ -16,6 +17,7 @@ export default function Home() {
       <ParallaxBackground />
       <Hero />
       <HowItWorks />
+      <PlayGames />
       <Features />
       <WhyPuzzleBite />
       <Pricing />

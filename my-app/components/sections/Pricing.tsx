@@ -29,7 +29,7 @@ const plans = [
     },
     {
         name: "Gold",
-        price: "$149",
+        price: "₹ 14999",
         description: "For the ultimate experience with full customization and dedicated support.",
         features: ["Everything in Premium", "Dedicated Account Manager", "API Access", "White Labeling"],
         popular: false,
@@ -85,12 +85,7 @@ export function Pricing() {
                                         ))}
                                     </ul>
 
-                                    <button className={`w-full py-3 rounded-xl font-bold transition-all ${plan.popular
-                                        ? 'bg-primary hover:bg-primary/90 text-white'
-                                        : 'bg-white/10 hover:bg-white/20 text-white'
-                                        }`}>
-                                        Choose Plan
-                                    </button>
+                                    
                                 </div>
                             </ElectricBorder>
                         </motion.div>
