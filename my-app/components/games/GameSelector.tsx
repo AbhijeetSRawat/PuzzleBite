@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Gamepad2, Grid, Brain, MousePointer2, Hash, HelpCircle } from "lucide-react";
+import { X, Gamepad2, Grid, Brain, MousePointer2, Hash, HelpCircle, Utensils, Car } from "lucide-react";
 import { DiscountModal } from "@/components/ui/DiscountModal";
-import { SnakeGame } from "@/components/games/SnakeGame";
-import { TicTacToe } from "@/components/games/TicTacToe";
+import { BurgerBountyGame } from "@/components/games/BurgerBountyGame";
+import { VortellisPizzaGame } from "@/components/games/VortellisPizzaGame";
 import { MemoryGame } from "@/components/games/MemoryGame";
 import { WhackAMole } from "@/components/games/WhackAMole";
 import { Game2048 } from "@/components/games/Game2048";
@@ -17,8 +17,8 @@ interface GameSelectorProps {
 }
 
 const games = [
-    { id: "snake", name: "Snake", icon: Gamepad2, color: "text-green-500", bg: "bg-green-500/10" },
-    { id: "tictactoe", name: "Tic Tac Toe", icon: Grid, color: "text-blue-500", bg: "bg-blue-500/10" },
+    { id: "burger", name: "Burger Bounty", icon: Utensils, color: "text-orange-500", bg: "bg-orange-500/10" },
+    { id: "pizza", name: "Vortelli's Pizza", icon: Car, color: "text-red-500", bg: "bg-red-500/10" },
     { id: "memory", name: "Memory Match", icon: Brain, color: "text-purple-500", bg: "bg-purple-500/10" },
     { id: "whack", name: "Whack-a-Mole", icon: MousePointer2, color: "text-red-500", bg: "bg-red-500/10" },
     { id: "2048", name: "2048", icon: Hash, color: "text-yellow-500", bg: "bg-yellow-500/10" },
@@ -89,8 +89,8 @@ export function GameSelector({ isOpen, onClose }: GameSelectorProps) {
             </AnimatePresence>
 
             {/* Game Components Rendered Here */}
-            {selectedGame === "snake" && <SnakeGame onClose={() => setSelectedGame(null)} onComplete={handleGameComplete} />}
-            {selectedGame === "tictactoe" && <TicTacToe onClose={() => setSelectedGame(null)} onComplete={handleGameComplete} />}
+            {selectedGame === "burger" && <BurgerBountyGame onClose={() => setSelectedGame(null)} onComplete={handleGameComplete} />}
+            {selectedGame === "pizza" && <VortellisPizzaGame onClose={() => setSelectedGame(null)} onComplete={handleGameComplete} />}
             {selectedGame === "memory" && <MemoryGame onClose={() => setSelectedGame(null)} onComplete={handleGameComplete} />}
             {selectedGame === "whack" && <WhackAMole onClose={() => setSelectedGame(null)} onComplete={handleGameComplete} />}
             {selectedGame === "2048" && <Game2048 onClose={() => setSelectedGame(null)} onComplete={handleGameComplete} />}

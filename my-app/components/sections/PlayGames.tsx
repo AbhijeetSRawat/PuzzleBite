@@ -2,29 +2,29 @@
 
 import { useState } from "react";
 import ScrollStack, { ScrollStackItem } from '@/components/ui/ScrollStack';
-import { SnakeGame } from "@/components/games/SnakeGame";
-import { TicTacToe } from "@/components/games/TicTacToe";
+import { BurgerBountyGame } from "@/components/games/BurgerBountyGame";
+import { VortellisPizzaGame } from "@/components/games/VortellisPizzaGame";
 import { MemoryGame } from "@/components/games/MemoryGame";
 import { WhackAMole } from "@/components/games/WhackAMole";
 import { Game2048 } from "@/components/games/Game2048";
 import { TriviaGame } from "@/components/games/TriviaGame";
 import { DiscountModal } from "@/components/ui/DiscountModal";
-import { Gamepad2, Grid, Brain, MousePointer2, Hash, HelpCircle } from "lucide-react";
+import { Gamepad2, Grid, Brain, MousePointer2, Hash, HelpCircle, Utensils, Car } from "lucide-react";
 
 const games = [
     {
-        id: "snake",
-        title: "Snake",
-        description: "Navigate the snake to eat food and grow longer without hitting the walls or yourself.",
-        color: "bg-gradient-to-br from-green-500 to-emerald-700",
-        icon: Gamepad2
+        id: "burger",
+        title: "Burger Bounty",
+        description: "Run your own burger joint! Cook, serve, and manage your restaurant in this addictive simulation game.",
+        color: "bg-gradient-to-br from-orange-500 to-red-700",
+        icon: Utensils
     },
     {
-        id: "tictactoe",
-        title: "Tic Tac Toe",
-        description: "The classic game of X and O. Challenge the AI or a friend.",
-        color: "bg-gradient-to-br from-blue-500 to-indigo-700",
-        icon: Grid
+        id: "pizza",
+        title: "Vortelli's Pizza",
+        description: "Deliver pizzas in an open world! Drive fast, avoid traffic, and satisfy hungry customers.",
+        color: "bg-gradient-to-br from-red-500 to-yellow-600",
+        icon: Car
     },
     {
         id: "memory",
@@ -103,8 +103,8 @@ export function PlayGames() {
             </div>
 
             {/* Game Components Rendered Here */}
-            {selectedGame === "snake" && <SnakeGame onClose={() => setSelectedGame(null)} onComplete={handleGameComplete} />}
-            {selectedGame === "tictactoe" && <TicTacToe onClose={() => setSelectedGame(null)} onComplete={handleGameComplete} />}
+            {selectedGame === "burger" && <BurgerBountyGame onClose={() => setSelectedGame(null)} onComplete={handleGameComplete} />}
+            {selectedGame === "pizza" && <VortellisPizzaGame onClose={() => setSelectedGame(null)} onComplete={handleGameComplete} />}
             {selectedGame === "memory" && <MemoryGame onClose={() => setSelectedGame(null)} onComplete={handleGameComplete} />}
             {selectedGame === "whack" && <WhackAMole onClose={() => setSelectedGame(null)} onComplete={handleGameComplete} />}
             {selectedGame === "2048" && <Game2048 onClose={() => setSelectedGame(null)} onComplete={handleGameComplete} />}
